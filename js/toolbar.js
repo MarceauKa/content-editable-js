@@ -1,17 +1,4 @@
 class Toolbar {
-    i18n = {
-        fr: {
-            edit: 'Modifier',
-            save: 'Enregistrer',
-            cancel: 'Annuler',
-        },
-        en: {
-            edit: 'Edit',
-            save: 'Save',
-            cancel: 'Cancel',
-        },
-    };
-
     init(editor) {
         this.editor = editor;
 
@@ -25,6 +12,12 @@ class Toolbar {
         this.$toolbar = document.querySelector('div[data-toolbar=""]');
         this.$opened = this.$toolbar.querySelector('[data-toolbar="opened"]');
         this.$closed = this.$toolbar.querySelector('[data-toolbar="closed"]');
+    }
+
+    remove() {
+        this.$toolbar.remove();
+        this.$opened = null;
+        this.$closed = null;
     }
 
     toggleToolbar(state = true) {
@@ -59,28 +52,16 @@ class Toolbar {
     }
 
     getTemplate() {
-        let lang = this.getI18N();
-
         return `
         <div style="position: absolute; top: 10px; right: 10px;" data-toolbar>
             <div data-toolbar="closed" style="display: block;">
-                <button class="btn btn-primary shadow-sm" data-toolbar="edit">${lang.edit}</button>
+                <button class="btn btn-primary shadow-sm" data-toolbar="edit">${i18n._.edit}</button>
             </div>
             <div data-toolbar="opened" style="display: none;">
-                <button class="btn btn-warning shadow-sm mr-1" data-toolbar="cancel">${lang.cancel}</button>
-                <button class="btn btn-success shadow-sm" data-toolbar="save">${lang.save}</button>
+                <button class="btn btn-warning shadow-sm mr-1" data-toolbar="cancel">${i18n._.cancel}</button>
+                <button class="btn btn-success shadow-sm" data-toolbar="save">${i18n._.save}</button>
             </div>
         </div>
         `;
-    }
-
-    getI18N(lang = null) {
-        lang = lang === null ? document.querySelector('[lang]').getAttribute('lang') : lang;
-
-        if (this.i18n.hasOwnProperty(lang)) {
-            return this.i18n[lang];
-        }
-
-        return this.i18n.en;
     }
 }

@@ -5,9 +5,7 @@ body {
 }
 
 body {
-    background-image: url('https://source.unsplash.com/random/1920x1080');
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding: 20px 0;
+    background-color: #FAACA8;
+    background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
+    padding: 30px 0;
 }

@@ -5,6 +5,8 @@ class Editor {
         this.editing = false;
 
         this.toolbar.init(this);
+
+        this.initGroups();
         this.initEditables();
     }
 
@@ -14,27 +16,27 @@ class Editor {
     }
 
     cancel() {
-        let modified = this.getDirtyItems();
-
         this.editing = false;
 
-        if (modified.length > 0) {
-            modified.forEach((item) => {
-                item.$el.textContent = item.original;
+        if (this.getDirtyItems().length > 0) {
+            this.getDirtyItems.forEach((editable) => {
+                editable.reset();
+                editable.setNodeValue(editable.original);
             });
         }
 
-        this.editables.map((item) => {
-            item.dirty = false;
-            item.value = null;
+        this.editables.forEach((editable) => {
+            editable.reset();
         });
+
+        this.toggleEditables();
     }
 
     save() {
         this.editing = false;
 
         let modified = this.getDirtyItems();
-        let changed = modified.map((item) => {
+        let changed = this.getDirtyItems().map((item) => {
             return {
                 name: item.name,
                 value: item.value
@@ -42,8 +44,27 @@ class Editor {
         });
 
         if (changed.length > 0) {
-            this.recorder.save(changed);
+            let group = this.groups.filter((group) => {
+                return group.$el.contains(modified[0].$el);
+            })[0];
+
+            this.recorder.save(changed, group.endpoint || null);
         }
+
+        this.toggleEditables();
+    }
+
+    initGroups() {
+        this.groups = [];
+        let groups = document.querySelectorAll('[data-group]');
+
+        groups.forEach((group) => {
+            this.groups.push({
+                $el: group,
+                name: group.dataset.group,
+                endpoint: group.dataset.groupEndpoint || null,
+            });
+        });
     }
 
     initEditables() {
@@ -56,52 +77,20 @@ class Editor {
     }
 
     initEditable($editable) {
-        this.editables.push({
-            $el: $editable,
-            name: $editable.dataset.editable,
-            original: $editable.textContent,
-            value: null,
-            dirty: false,
-        });
-
-        $editable.addEventListener('blur', (item) => {
-            let element = this.editables.filter((item) => {
-                return item.$el === event.target;
-            })[0];
-
-            if (element) {
-                this.editableChanged(element);
-            }
-        });
+        let editable = Editable.init($editable);
+        this.editables.push(editable);
     }
 
     toggleEditables() {
-        this.editables.forEach((item) => {
-            if (this.editing) {
-                item.$el.setAttribute('contenteditable', true);
-            } else {
-                item.$el.removeAttribute('contenteditable');
-            }
+        this.editables.forEach((editable) => {
+            editable.toggle();
         })
     }
 
     getDirtyItems() {
-        return this.editables.filter((item) => {
-            return item.dirty === true;
+        return this.editables.filter((editable) => {
+            return editable.dirty === true;
         });
-    }
-
-    editableChanged(item) {
-        let oldValue = item.original;
-        let newValue = item.$el.textContent;
-
-        if (oldValue !== newValue) {
-            item.value = newValue.trim();
-            item.dirty = true;
-        }
-
-        let index = this.editables.indexOf(item);
-        this.editables[index] = item;
     }
 
     setContent(content = {}) {

@@ -1,38 +1,13 @@
 class Recorder {
-    constructor(driver) {
-        this.driver = driver;
+    constructor(defaultEndpoint) {
+        this.defaultEndpoint = defaultEndpoint;
     }
 
-    save(changed) {
-        this.driver.save(changed)
-    }
-}
-
-class LocalStorageRecorder {
-    defaultConfig = {};
-
-    constructor(config = {}) {
-        this.config = Object.assign(this.defaultConfig, config);
-    }
-
-    save(changed) {
-        console.log('LocalStorageRecorder save', changed);
-    }
-}
-
-class HttpRecorder {
-    defaultConfig = {
-        endpoint: 'http://localhost'
-    };
-
-    constructor(config = {}) {
-        this.config = Object.assign(this.defaultConfig, config);
-    }
-
-    save(changed) {
+    save(changed, endpoint = null) {
         console.log('HttpRecorder save', changed);
+        endpoint = endpoint || this.defaultEndpoint;
 
-        let request = new Request(this.config.endpoint, {
+        let request = new Request(endpoint, {
             method: 'POST',
             body: JSON.stringify(changed),
         });

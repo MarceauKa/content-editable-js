@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="utf-8"/>
     <title>Content editable</title>
@@ -11,20 +11,62 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <div class="card shadow-lg mt-4">
-                    <h4 class="card-header" data-editable="title">Hello world!</h4>
+                <div class="card shadow-lg mt-4"
+                     data-group="homepage"
+                     data-group-endpoint="http://127.0.0.1:1080/homepage"
+                >
+                    <img src="https://source.unsplash.com/random/1200x400"
+                         alt="Unsplash image"
+                         class="card-image-top"
+                         data-editable="img"
+                         data-editable-is-image
+                    >
+                    
                     <div class="card-body">
-                        <p data-editable="content">
+                        <h4 class="card-title"
+                            data-editable="title"
+                            data-editable-is-text
+                        >Hello world!</h4>
+
+                        <p data-editable="body"
+                           data-editable-is-text
+                        >
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae,
                             culpa cupiditate delectus dicta doloremque doloribus error id itaque
                             iure magnam maiores, nam, officia quae quaerat repellendus sapiente temporibus.
                         </p>
+                    </div>
+                </div>
 
-                        <table class="table" data-editable="table">
-                            <tr>
-                                <td>Foo</td>
-                                <td>Bar</td>
-                            </tr>
+                <div class="card shadow-lg mt-4"
+                     data-group="openings"
+                     data-group-endpoint="http://127.0.0.1:1080/openings"
+                >
+                    <div class="card-body">
+                        <h4 class="card-title"
+                            data-editable="title"
+                            data-editable-is-text
+                        >Openings</h4>
+
+                        <table class="table table-sm table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Hours</th>
+                                </tr>
+                            </thead>
+                            <tbody data-editable="items"
+                                   data-editable-is-html
+                            >
+                                <tr>
+                                    <td>Monday to Friday</td>
+                                    <td>9am - 9pm</td>
+                                </tr>
+                                <tr>
+                                    <td>Saturday</td>
+                                    <td>10am - 5pm</td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -32,12 +74,14 @@
         </div>
     </div>
 
+    <script src="js/i18n.js"></script>
     <script src="js/recorder.js"></script>
     <script src="js/toolbar.js"></script>
+    <script src="js/editables.js"></script>
     <script src="js/editor.js"></script>
     <script type="text/javascript">
-        const recorderDriver = new LocalStorageRecorder(); // or new HttpRecorder()
-        const recorder = new Recorder(recorderDriver);
+        const i18n = new I18N();
+        const recorder = new Recorder('http://127.0.0.1:1080/default');
         const toolbar = new Toolbar();
         const editor = new Editor(toolbar, recorder);
     </script>
