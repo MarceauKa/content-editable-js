@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Content editable</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow-lg mt-4">
+                    <h4 class="card-header" data-editable="title">Hello world!</h4>
+                    <div class="card-body">
+                        <p data-editable="content">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae,
+                            culpa cupiditate delectus dicta doloremque doloribus error id itaque
+                            iure magnam maiores, nam, officia quae quaerat repellendus sapiente temporibus.
+                        </p>
+
+                        <table class="table" data-editable="table">
+                            <tr>
+                                <td>Foo</td>
+                                <td>Bar</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/recorder.js"></script>
+    <script src="js/toolbar.js"></script>
+    <script src="js/editor.js"></script>
+    <script type="text/javascript">
+        const recorderDriver = new LocalStorageRecorder(); // or new HttpRecorder()
+        const recorder = new Recorder(recorderDriver);
+        const toolbar = new Toolbar();
+        const editor = new Editor(toolbar, recorder);
+    </script>
+</body>
+</html>

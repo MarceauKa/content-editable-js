@@ -1,0 +1,13 @@
+html,
+body {
+    height: 100%;
+    min-height: 100%;
+}
+
+body {
+    background-image: url('https://source.unsplash.com/random/1920x1080');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 20px 0;
+}
