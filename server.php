@@ -6,9 +6,8 @@
 
 $token = 'your-token';
 $groups = [
-    'default' => ['alert'],
-    'homepage' => ['img', 'title', 'body'],
-    'openings' => ['title', 'items'],
+    'about' => ['img', 'title', 'body'],
+    'documentation' => ['title', 'editable'],
 ];
 
 function response($data, int $http_code = 200) {

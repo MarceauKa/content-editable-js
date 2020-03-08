@@ -24,7 +24,7 @@
         <div class="col-12">
             <div class="card shadow-lg mt-4"
                  data-group="homepage"
-                 data-group-endpoint="http://127.0.0.1:1080/server.php?group=homepage"
+                 data-group-endpoint="http://127.0.0.1:1080/server.php?group=about"
             >
                 <img src="https://source.unsplash.com/random/1000x200"
                      alt="Unsplash image"
@@ -37,46 +37,41 @@
                     <h4 class="card-title"
                         data-editable="title"
                         data-editable-is-text
-                    >Hello world!</h4>
+                    >Content Editable JS!</h4>
 
                     <p data-editable="body"
-                       data-editable-is-text
+                       data-editable-is-html
                     >
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae,
-                        culpa cupiditate delectus dicta doloremque doloribus error id itaque
-                        iure magnam maiores, nam, officia quae quaerat repellendus sapiente temporibus.
+                        Content Editable is a JS library useful to interact and update your content in live.
+                        Check out the <a href="https://github.com/MarceauKa/content-editable-js" target="_blank">source code</a> on Github!
                     </p>
                 </div>
             </div>
 
             <div class="card shadow-lg mt-4"
-                 data-group="openings"
-                 data-group-endpoint="http://127.0.0.1:1080/server.php?group=openings"
+                 data-group="documentation"
+                 data-group-endpoint="http://127.0.0.1:1080/server.php?group=documentation"
             >
                 <div class="card-body">
                     <h4 class="card-title"
                         data-editable="title"
                         data-editable-is-text
-                    >Openings</h4>
+                    >Documentation</h4>
 
-                    <table class="table table-sm table-striped table-bordered">
+                    <table class="table table-sm table-condensed table-bordered">
                         <thead>
                         <tr>
-                            <th>Day</th>
-                            <th>Hours</th>
+                            <th>Name</th>
+                            <th>Description</th>
                         </tr>
                         </thead>
-                        <tbody data-editable="items"
+                        <tbody data-editable="editable"
                                data-editable-is-html
                         >
-                        <tr>
-                            <td>Monday to Friday</td>
-                            <td>9am - 9pm</td>
-                        </tr>
-                        <tr>
-                            <td>Saturday</td>
-                            <td>10am - 5pm</td>
-                        </tr>
+                            <tr><td>data-editable="KEY"</td><td>The key of the editable element</td></tr>
+                            <tr><td>data-editable-is-text</td><td><i>(default)</i> Editable element can only contain text</td></tr>
+                            <tr><td>data-editable-is-html</td><td>The editable element contain HTML</td></tr>
+                            <tr><td>data-editable-is-image</td><td>The editable element is an image</td></tr>
                         </tbody>
                     </table>
                 </div>
