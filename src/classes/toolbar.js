@@ -1,9 +1,19 @@
-class Toolbar {
-    init(editor) {
-        this.editor = editor;
+import { i18n } from './i18n';
 
+export default class Toolbar {
+    constructor(app) {
+        this.app = app;
+    }
+
+    show() {
         this.insert();
         this.bindToolbarEvents();
+    }
+
+    hide() {
+        this.$toolbar.remove();
+        this.$opened = null;
+        this.$closed = null;
     }
 
     insert() {
@@ -12,12 +22,6 @@ class Toolbar {
         this.$toolbar = document.querySelector('div[data-toolbar=""]');
         this.$opened = this.$toolbar.querySelector('[data-toolbar="opened"]');
         this.$closed = this.$toolbar.querySelector('[data-toolbar="closed"]');
-    }
-
-    remove() {
-        this.$toolbar.remove();
-        this.$opened = null;
-        this.$closed = null;
     }
 
     toggleToolbar(state = true) {
@@ -31,7 +35,7 @@ class Toolbar {
             .addEventListener('click', (event) => {
                 event.preventDefault();
                 this.toggleToolbar(true);
-                this.editor.edit();
+                this.app.editor.edit();
             });
 
         this.$opened
@@ -39,7 +43,7 @@ class Toolbar {
             .addEventListener('click', (event) => {
                 event.preventDefault();
                 this.toggleToolbar(false);
-                this.editor.cancel();
+                this.app.editor.cancel();
             });
 
         this.$opened
@@ -47,7 +51,7 @@ class Toolbar {
             .addEventListener('click', (event) => {
                 event.preventDefault();
                 this.toggleToolbar(false);
-                this.editor.save();
+                this.app.editor.save();
             });
     }
 

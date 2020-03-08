@@ -1,12 +1,16 @@
-class Editable {
+import { i18n } from './i18n';
+
+export class Editable {
     constructor($node) {
         this.$el = $node;
         this.name = $node.dataset.editable;
         this.original = this.getNodeValue();
         this.value = null;
         this.dirty = false;
+        this.group = 'default';
 
         this.bindEvent();
+        this.detectGroup();
     }
 
     static init($node) {
@@ -34,6 +38,16 @@ class Editable {
         this.value = null;
     }
 
+    restoreOriginalValue() {
+        this.reset();
+        this.setNodeValue(this.original);
+    }
+
+    newOriginalValue() {
+        this.reset();
+        this.original = this.getNodeValue();
+    }
+
     bindEvent() {
         this.$el.addEventListener('blur', (event) => {
             event.preventDefault();
@@ -50,6 +64,14 @@ class Editable {
         }
     }
 
+    detectGroup() {
+        let $group = this.$el.closest('[data-group]');
+
+        if ($group) {
+            this.group = $group.dataset.group || 'default';
+        }
+    }
+
     getNodeValue() {
         throw new Error("Editable getNotValue can't be accessed directly");
     }
@@ -59,11 +81,7 @@ class Editable {
     }
 }
 
-class TextEditable extends Editable {
-    constructor($node) {
-        super($node);
-    }
-
+export class TextEditable extends Editable {
     getNodeValue() {
         return this.$el.textContent.trim();
     }
@@ -73,11 +91,7 @@ class TextEditable extends Editable {
     }
 }
 
-class HtmlEditable extends Editable {
-    constructor($node) {
-        super($node);
-    }
-
+export class HtmlEditable extends Editable {
     getNodeValue() {
         return this.$el.innerHTML.replace(/\n|\t|\s{2,}/g, '').trim();
     }
@@ -87,11 +101,7 @@ class HtmlEditable extends Editable {
     }
 }
 
-class ImageEditable extends Editable {
-    constructor($node) {
-        super($node);
-    }
-
+export class ImageEditable extends Editable {
     bindEvent() {
         super.bindEvent();
 

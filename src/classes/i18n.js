@@ -36,3 +36,5 @@ class I18N {
         }
     }
 }
+
+export const i18n = new I18N();
