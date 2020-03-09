@@ -1,6 +1,6 @@
 {
-  "name": "content-editable",
-  "version": "0.0.1",
+  "name": "content-editable-js",
+  "version": "0.0.2",
   "description": "Interact with your content and update it with ease!",
   "main": "src/index.js",
   "devDependencies": {
