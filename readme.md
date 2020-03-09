@@ -1,6 +1,6 @@
 # Content Editable JS
 
-Content editable helps you to interact with your content HTML.
+Content editable helps you to interact with your HTML content.
 Just add some attributes and let the magic happen!
 
 - [Demo](https://marceauka.github.com/content-editable-js)
@@ -30,7 +30,7 @@ let editable = contentEditable({
     debug: true,
     // (default: null) URL called to save your content
     defaultEndpoint: 'http://127.0.0.1:1080/server.php',
-    // (default: {}) Additional headers sent to your endpoin
+    // (default: {}) Additional headers sent to your endpoint
     headers: {
         'Authorization': 'Bearer your-token',
     },
