@@ -57,7 +57,7 @@ export default class Toolbar {
 
     getTemplate() {
         return `
-        <div style="position: absolute; top: 10px; right: 10px;" data-toolbar>
+        <div style="position: fixed; top: 10px; right: 10px;" data-toolbar>
             <div data-toolbar="closed" style="display: block;">
                 <button class="btn btn-primary shadow-sm" data-toolbar="edit">${i18n._.edit}</button>
             </div>

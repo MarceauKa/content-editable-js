@@ -8,8 +8,9 @@ export class Editable {
         this.value = null;
         this.dirty = false;
         this.group = 'default';
+        this.editing = false;
 
-        this.bindEvent();
+        this.bindEvents();
         this.detectGroup();
     }
 
@@ -26,6 +27,8 @@ export class Editable {
     }
 
     toggle() {
+        this.editing = ! this.editing;
+
         if (this.$el.hasAttribute('contenteditable')) {
             this.$el.removeAttribute('contenteditable');
         } else {
@@ -48,10 +51,12 @@ export class Editable {
         this.original = this.getNodeValue();
     }
 
-    bindEvent() {
+    bindEvents() {
         this.$el.addEventListener('blur', (event) => {
-            event.preventDefault();
-            this.changed();
+            if (this.editing) {
+                event.preventDefault();
+                this.changed();
+            }
         });
     }
 
@@ -102,12 +107,14 @@ export class HtmlEditable extends Editable {
 }
 
 export class ImageEditable extends Editable {
-    bindEvent() {
-        super.bindEvent();
+    bindEvents() {
+        super.bindEvents();
 
         this.$el.addEventListener('click', (event) => {
-            event.preventDefault();
-            this.askValue();
+            if (this.editing) {
+                event.preventDefault();
+                this.askValue();
+            }
         })
     }
 
