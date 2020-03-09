@@ -17,8 +17,13 @@ Just add some attributes and let the magic happen!
 
 ### Add the library
 ```html
+<!-- With CDN -->
+<script src="https://unpkg.com/content-editable-js/dist/content-editable.js"></script>
+<!-- Locally -->
 <script src="dist/content-editable.js"></script>
 ```
+
+Note: If you want to integrate content-editable-js to your own JS app, use npm `npm install content-editable-js --save`
 
 ### Call the library
 ```html

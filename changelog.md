@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.3
+
+- Add support for NPM
+
 ## 0.0.2
 
 - (fix) Better support for editables events

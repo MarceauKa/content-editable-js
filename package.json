@@ -1,7 +1,8 @@
 {
   "name": "content-editable-js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Interact with your content and update it with ease!",
+  "browser": "dist/content-editable.js",
   "main": "src/index.js",
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.8.3",
