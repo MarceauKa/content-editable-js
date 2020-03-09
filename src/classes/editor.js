@@ -1,116 +1,114 @@
-import { Editable } from "./editable";
+import { EditableFactory } from './editable'
 
 export default class Editor {
-    constructor(app) {
-        this.app = app;
-        this.editing = false;
+  constructor (app) {
+    this.app = app
+    this.editing = false
+  }
+
+  edit () {
+    this.app.debug('Enter editing mode')
+    this.editing = true
+    this.toggleEditables()
+  }
+
+  cancel () {
+    this.app.debug('Canceling changes')
+    this.editing = false
+
+    if (this.getDirtyItems().length > 0) {
+      this.getDirtyItems().forEach((editable) => {
+        editable.restoreOriginalValue()
+      })
     }
 
-    edit() {
-        this.app.debug('Enter editing mode');
-        this.editing = true;
-        this.toggleEditables();
-    }
+    this.toggleEditables()
+  }
 
-    cancel() {
-        this.app.debug('Canceling changes');
-        this.editing = false;
+  save () {
+    this.app.debug('Saving changes')
+    this.editing = false
+    const modified = this.getDirtyItems()
 
-        if (this.getDirtyItems().length > 0) {
-            this.getDirtyItems().forEach((editable) => {
-                editable.restoreOriginalValue();
-            });
+    if (modified.length > 0) {
+      this.groups.forEach((group) => {
+        const groupChanges = modified.filter(
+          (editable) => editable.group === group.name,
+        )
+
+        if (groupChanges.length > 0) {
+          const changes = groupChanges.map((editable) => ({
+            name: editable.name,
+            value: editable.value,
+          }))
+
+          this.app.debug('Sending group changes', group.name, changes)
+          this.app.recorder.save(changes, group.endpoint)
         }
+      })
 
-        this.toggleEditables();
+      modified.forEach((editable) => {
+        editable.newOriginalValue()
+      })
+    } else {
+      this.app.debug('Nothing to save')
     }
 
-    save() {
-        this.app.debug('Saving changes');
-        this.editing = false;
-        let modified = this.getDirtyItems();
+    this.toggleEditables()
+  }
 
-        if (modified.length > 0) {
-            this.groups.forEach((group) => {
-                let groupChanges = modified.filter(editable => editable.group === group.name);
+  initGroups () {
+    this.groups = []
+    const groups = document.querySelectorAll('[data-group]')
 
-                if (groupChanges.length > 0) {
-                    let changes = groupChanges.map((editable) => {
-                        return {
-                            name: editable.name,
-                            value: editable.value
-                        }
-                    });
+    this.groups.push({
+      $el: null,
+      name: 'default',
+      endpoint: null,
+    })
 
-                    this.app.debug(`Sending group changes`, group.name, changes);
-                    this.app.recorder.save(changes, group.endpoint);
-                }
-            });
+    groups.forEach((group) => {
+      this.groups.push({
+        $el: group,
+        name: group.dataset.group,
+        endpoint: group.dataset.groupEndpoint || null,
+      })
+    })
+  }
 
-            modified.forEach((editable) => {
-                editable.newOriginalValue();
-            });
-        } else {
-            this.app.debug('Nothing to save');
-        }
+  initEditables () {
+    this.app.debug('Editables initialized')
+    this.editables = []
+    const nodes = document.querySelectorAll('[data-editable]')
 
-        this.toggleEditables();
-    }
+    nodes.forEach((node) => {
+      this.initEditable(node)
+    })
+  }
 
-    initGroups() {
-        this.groups = [];
-        let groups = document.querySelectorAll('[data-group]');
+  initEditable ($node) {
+    const editable = EditableFactory.make($node)
+    this.editables.push(editable)
+  }
 
-        this.groups.push({
-            $el: null,
-            name: 'default',
-            endpoint: null,
-        });
+  toggleEditables () {
+    this.editables.forEach((editable) => {
+      editable.toggle()
+    })
+  }
 
-        groups.forEach((group) => {
-            this.groups.push({
-                $el: group,
-                name: group.dataset.group,
-                endpoint: group.dataset.groupEndpoint || null,
-            });
-        });
-    }
+  getDirtyItems () {
+    return this.editables.filter((editable) => editable.dirty === true)
+  }
 
-    initEditables() {
-        this.app.debug('Editables initialized');
-        this.editables = [];
-        let nodes = document.querySelectorAll('[data-editable]');
-
-        nodes.forEach((node) => {
-            this.initEditable(node);
-        });
-    }
-
-    initEditable($node) {
-        let editable = Editable.init($node);
-        this.editables.push(editable);
-    }
-
-    toggleEditables() {
-        this.editables.forEach((editable) => {
-            editable.toggle();
-        })
-    }
-
-    getDirtyItems() {
-        return this.editables.filter((editable) => {
-            return editable.dirty === true;
-        });
-    }
-
-    setContent(content = {}) {
-        this.editables.forEach((editable) => {
-            if (content.hasOwnProperty(editable.name)) {
-                editable.$el.textContent = content[editable.name];
-                editable.original = content[editable.name];
-                editable.value = null;
-                editable.dirty = false;
-            }
-        })
-    }
+  setContent (content = {}) {
+    this.editables.forEach((editable) => {
+      if (content.hasOwnProperty(editable.name)) {
+        editable.$el.textContent = content[editable.name]
+        editable.original = content[editable.name]
+        editable.value = null
+        editable.dirty = false
+      }
+    })
+  }
 }

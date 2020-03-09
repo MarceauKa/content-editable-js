@@ -1,5 +1,5 @@
-import App from './classes/app';
+import App from './classes/app'
 
-export default function contentEditable(config) {
-    return new App(config);
+export default function contentEditable (config) {
+  return new App(config)
 }

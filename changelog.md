@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- (refactor) EditableFactory, Editable and editables
+- Adopt the [Javascript style guide](https://github.com/airbnb/javascript) 
+
 ## 0.0.3
 
 - Add support for NPM
