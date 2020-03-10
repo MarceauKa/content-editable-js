@@ -1,6 +1,6 @@
 {
   "name": "content-editable-js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Interact with your content and update it with ease!",
   "browser": "dist/content-editable.js",
   "main": "src/index.js",
