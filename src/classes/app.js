@@ -32,6 +32,7 @@ export default class App {
 
   hide () {
     this.debug('Hide')
+    this.editor.toggleEditables();
     this.toolbar.hide()
   }
 

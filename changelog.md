@@ -6,6 +6,7 @@
 
 - (feat) Recorder and Toolbar can now be extended
 - (feat) Editables group now have its own class
+- (fix) Editables are now hidden when calling `hide()`
 - (refactor) EditableFactory, Editable and editables
 - (style) Adopt the [Javascript style guide](https://github.com/airbnb/javascript) 
 
