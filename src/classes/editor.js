@@ -1,4 +1,5 @@
 import { EditableFactory } from './editable'
+import Group from './group'
 
 export default class Editor {
   constructor (app) {
@@ -26,7 +27,6 @@ export default class Editor {
   }
 
   save () {
-    this.app.debug('Saving changes')
     this.editing = false
     const modified = this.getDirtyItems()
 
@@ -61,29 +61,24 @@ export default class Editor {
     this.groups = []
     const groups = document.querySelectorAll('[data-group]')
 
-    this.groups.push({
-      $el: null,
-      name: 'default',
-      endpoint: null,
-    })
+    this.groups.push(new Group());
 
     groups.forEach((group) => {
-      this.groups.push({
-        $el: group,
-        name: group.dataset.group,
-        endpoint: group.dataset.groupEndpoint || null,
-      })
+      this.groups.push(new Group(group));
     })
+
+    this.app.debug('Groups initialized', this.groups)
   }
 
   initEditables () {
-    this.app.debug('Editables initialized')
     this.editables = []
-    const nodes = document.querySelectorAll('[data-editable]')
+    const editables = document.querySelectorAll('[data-editable]')
 
-    nodes.forEach((node) => {
-      this.initEditable(node)
+    editables.forEach((editable) => {
+      this.initEditable(editable)
     })
+
+    this.app.debug('Editables initialized', this.editables)
   }
 
   initEditable ($node) {
@@ -99,16 +94,5 @@ export default class Editor {
 
   getDirtyItems () {
     return this.editables.filter((editable) => editable.dirty === true)
-  }
-
-  setContent (content = {}) {
-    this.editables.forEach((editable) => {
-      if (content.hasOwnProperty(editable.name)) {
-        editable.$el.textContent = content[editable.name]
-        editable.original = content[editable.name]
-        editable.value = null
-        editable.dirty = false
-      }
-    })
   }
 }
