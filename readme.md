@@ -60,22 +60,28 @@ let editable = contentEditable({
 
 An **Editable** is an HTML element that can be edited.
 
-|Name                   |Description                    |
-|-----------------------|-------------------------------|
-|data-editable="KEY"    |The key of the editable element|
-|data-editable-is-text  |__(default)__ Editable element can only contain text|
-|data-editable-is-html  |The editable element contain HTML|
-|data-editable-is-image |The editable element is an image|
+- `data-editable="KEY"`  
+Where `KEY` is the name of the editable.
+
+- `data-editable-type="TYPE"`  
+Where `TYPE` is the type of the editable. Optional.  
+
+|Name      |Description    |
+|----------|---------------|
+| `text`   | __(default)__ Simple text element without HTML |
+| `html`   | Simple element with HTML content |
+| `image`  | Simple image content |
 
 ### Groups
 
 A **Group** is a collection of editables which are sent together to a same endpoint.
 Groups must be configured at the parent of your editables.
 
-|Name                |Description                    |
-|--------------------|-------------------------------|
-|data-group="KEY"    |The key of the group, it must be unique|
-|data-group-endpoint |URL of the group's endpoint|
+- `data-group="KEY"`  
+Where `KEY` is the name of the group. It must be unique.
+
+- `data-group-endpoint="URL"`  
+Where `URL` is your endpoint for the included editables.
 
 #### Example
 ```html
@@ -86,7 +92,7 @@ Groups must be configured at the parent of your editables.
 </tr>
 <tr>
     <td data-editable="weekend-days">Saturday</td>
-    <td data-editable="weekend-hours">8am to 8pm</td>
+    <td data-editable="weekend-hours">10am to 7pm</td>
 </tr>
 </table>
 ```

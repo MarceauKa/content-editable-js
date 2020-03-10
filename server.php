@@ -7,7 +7,7 @@
 $token = 'your-token';
 $groups = [
     'about' => ['img', 'title', 'body'],
-    'documentation' => ['title', 'editable'],
+    'openings' => ['title', 'description', 'week-days', 'week-hours', 'weekend-days', 'weekend-hours'],
 ];
 
 function response($data, int $http_code = 200) {

@@ -2,6 +2,7 @@ import Recorder from './recorder'
 import Editor from './editor'
 import Toolbar from './toolbar'
 import { i18n } from './i18n'
+import { EditableFactory } from './editable'
 
 export default class App {
   constructor (config = {}) {

@@ -30,17 +30,16 @@
                      alt="Unsplash image"
                      class="card-image-top"
                      data-editable="img"
-                     data-editable-is-image
+                     data-editable-type="image"
                 >
 
                 <div class="card-body">
                     <h4 class="card-title"
                         data-editable="title"
-                        data-editable-is-text
                     >Content Editable JS!</h4>
 
                     <p data-editable="body"
-                       data-editable-is-html
+                       data-editable-type="html"
                     >
                         Content Editable is a JS library useful to interact and update your content in live.
                         Check out the <a href="https://github.com/MarceauKa/content-editable-js" target="_blank">source code</a> on Github!
@@ -55,24 +54,24 @@
                 <div class="card-body">
                     <h4 class="card-title"
                         data-editable="title"
-                        data-editable-is-text
-                    >Documentation</h4>
+                    >Openings</h4>
 
-                    <table class="table table-sm table-condensed table-bordered">
-                        <thead>
+                    <p data-editable="description">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aperiam at consequuntur corporis distinctio dolores earum eius eos, explicabo.
+                    </p>
+
+                    <table class="table table-sm table-striped table-bordered"
+                           data-group="openings"
+                           data-group-endpoint="http://127.0.0.1:1080/server.php?group=openings"
+                    >
                         <tr>
-                            <th>Name</th>
-                            <th>Description</th>
+                            <td data-editable="week-days">Monday to Friday</td>
+                            <td data-editable="week-hours">8am to 8pm</td>
                         </tr>
-                        </thead>
-                        <tbody data-editable="editable"
-                               data-editable-is-html
-                        >
-                            <tr><td>data-editable="KEY"</td><td>The key of the editable element</td></tr>
-                            <tr><td>data-editable-is-text</td><td><i>(default)</i> Editable element can only contain text</td></tr>
-                            <tr><td>data-editable-is-html</td><td>The editable element contain HTML</td></tr>
-                            <tr><td>data-editable-is-image</td><td>The editable element is an image</td></tr>
-                        </tbody>
+                        <tr>
+                            <td data-editable="weekend-days">Saturday</td>
+                            <td data-editable="weekend-hours">10am to 7pm</td>
+                        </tr>
                     </table>
                 </div>
             </div>
