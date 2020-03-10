@@ -101,10 +101,12 @@ Where `URL` is your endpoint for the included editables.
 
 The function `contentEditable()` returns an App instance with some methods:
 
-|Method    |Description                    |
-|----------|-------------------------------|
-|show()    |Show the app and init editables|
-|hide()    |Hide the app|
+|Method        |Description                    |
+|--------------|-------------------------------|
+|show()        |Show the app and init editables|
+|hide()        |Hide the app|
+|setRecorder() |Add [your own recorder](#recorder) logic|
+|setToolbar()  |Add [your own toolbar](#toolbar) logic|
 
 ## Extend
 
@@ -127,6 +129,8 @@ contentEditable.setRecorder({
 })
 ```
 
+See the default recorder located at [src/classes/recorder.js](https://github.com/MarceauKa/content-editable-js/tree/master/src/classes/recorder.js) for details.
+
 ### Toolbar
 
 The toolbar is the default component responsible for showing edit buttons. You can replace it at the initialization.
@@ -141,6 +145,8 @@ contentEditable.setToolbar({
   hide() { /* My logic */ }  
 })
 ```
+
+See the default toolbar located at [src/classes/toolbar.js](https://github.com/MarceauKa/content-editable-js/tree/master/src/classes/toolbar.js) for details.
 
 ### Localization
 
