@@ -31,15 +31,15 @@ Note: If you want to integrate content-editable-js to your own JS app, use npm `
 let editable = contentEditable({
     // (default: true) Auto show the editor when initialized
     showOnInit: true,
-    // (default: true) Show debug infos
+    // (default: false) Show debug infos
     debug: true,
     // (default: null) URL called to save your content
     defaultEndpoint: 'http://127.0.0.1:1080/server.php',
     // (default: {}) Additional headers sent to your endpoint
     headers: {
-        'Authorization': 'Bearer your-token',
+        'Authorization': 'Bearer your-token'
     },
-});
+})
 </script>
 ```
 
@@ -105,6 +105,36 @@ The function `contentEditable()` returns an App instance with some methods:
 ### Editable types
 
 __TODO__
+
+### Recorder
+
+Recorder is in charge to post changes to your endpoints. When initializing you can replace the default one.
+Just bring your own object (or class) with just a function named `save(changes = [])`.
+
+```js
+let contentEditable = contentEditable({ /* your config */ })
+
+contentEditable.setRecorder({
+  save(changes = [], endpoint = null) {
+      /* My logic */
+  }
+})
+```
+
+### Toolbar
+
+The toolbar is the default component responsible for showing edit buttons. You can replace it at the initialization.
+Just implement an object with the functions `show()` and `hide()`. 
+The library will hide the default one immediatly and replace it with your own.
+
+```js
+let contentEditable = contentEditable({ /* your config */ })
+
+contentEditable.setToolbar({
+  show() { /* My logic */ },
+  hide() { /* My logic */ }  
+})
+```
 
 ### Localization
 

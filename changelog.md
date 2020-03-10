@@ -2,12 +2,13 @@
 
 ## Unreleased
 
+- (feat) Recorder and Toolbar can now be extended
 - (refactor) EditableFactory, Editable and editables
-- Adopt the [Javascript style guide](https://github.com/airbnb/javascript) 
+- (style) Adopt the [Javascript style guide](https://github.com/airbnb/javascript) 
 
 ## 0.0.3
 
-- Add support for NPM
+- (feat) Add support for NPM
 
 ## 0.0.2
 

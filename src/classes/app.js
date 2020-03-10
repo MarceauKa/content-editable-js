@@ -4,17 +4,14 @@ import Toolbar from './toolbar'
 import { i18n } from './i18n'
 
 export default class App {
-  constructor (config) {
+  constructor (config = {}) {
     this.config = {
-      ...{
-        debug: false,
-        defaultEndpoint: null,
-        headers: {},
-        showOnInit: true,
-      },
+      debug: false,
+      defaultEndpoint: null,
+      headers: {},
+      showOnInit: true,
       ...config,
     }
-
     this.toolbar = new Toolbar(this)
     this.recorder = new Recorder(this)
     this.editor = new Editor(this)
@@ -36,6 +33,25 @@ export default class App {
   hide () {
     this.debug('Hide')
     this.toolbar.hide()
+  }
+
+  setRecorder (recorder) {
+    this.debug('Recorder updated')
+    this.recorder = recorder
+
+    return this;
+  }
+
+  setToolbar (toolbar) {
+    this.debug('Toolbar updated')
+    this.toolbar.hide()
+    this.toolbar = toolbar
+
+    if (this.config.showOnInit) {
+      this.toolbar.show()
+    }
+
+    return this;
   }
 
   debug (...args) {

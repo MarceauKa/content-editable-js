@@ -10,10 +10,8 @@ export default class Recorder {
     const request = new Request(endpoint, {
       method: 'POST',
       headers: {
-        ...{
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
         ...this.app.config.headers,
       },
       body: JSON.stringify(changed),
